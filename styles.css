@@ -1,0 +1,709 @@
+/* ==========================================================================
+   SISTEMAS DE INFORMACIÓN - MODERN & PROFESSIONAL DESIGN SYSTEM
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+    /* Color Palette */
+    --bg-main: #0b0f19;
+    --bg-secondary: #0f172a;
+    --bg-card: rgba(17, 24, 39, 0.72);
+    --bg-card-hover: rgba(26, 36, 56, 0.88);
+    --bg-nav: rgba(11, 15, 25, 0.82);
+
+    /* Borders */
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(56, 189, 248, 0.4);
+    --border-glow: rgba(99, 102, 241, 0.5);
+
+    /* Text Colors */
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --text-accent: #38bdf8;
+
+    /* Accents & Gradients */
+    --accent-cyan: #38bdf8;
+    --accent-blue: #3b82f6;
+    --accent-indigo: #6366f1;
+    --accent-purple: #a855f7;
+    --accent-emerald: #10b981;
+
+    --gradient-title: linear-gradient(135deg, #ffffff 0%, #38bdf8 50%, #818cf8 100%);
+    --gradient-primary: linear-gradient(135deg, #38bdf8 0%, #6366f1 50%, #a855f7 100%);
+    --gradient-card: linear-gradient(180deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.7) 100%);
+    --gradient-badge: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(99, 102, 241, 0.15));
+
+    /* Shadows */
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.25);
+    --shadow-md: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 20px 45px -15px rgba(0, 0, 0, 0.65);
+    --shadow-glow: 0 0 35px rgba(56, 189, 248, 0.18);
+
+    /* Layout & Transitions */
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-full: 9999px;
+
+    --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Base Reset & Smooth Scroll */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-secondary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    position: relative;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Ambient Glowing Background Effect */
+body::before {
+    content: '';
+    position: fixed;
+    top: -20%;
+    left: 20%;
+    width: 650px;
+    height: 650px;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, rgba(99, 102, 241, 0.05) 50%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: -1;
+    pointer-events: none;
+    animation: ambientFloat 14s ease-in-out infinite alternate;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    bottom: -15%;
+    right: 15%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, rgba(56, 189, 248, 0.04) 50%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(90px);
+    z-index: -1;
+    pointer-events: none;
+    animation: ambientFloat 18s ease-in-out infinite alternate-reverse;
+}
+
+/* Subtle Geometric Grid Overlay */
+body {
+    background-image: 
+        radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+}
+
+/* Selection Color */
+::selection {
+    background: rgba(56, 189, 248, 0.3);
+    color: #ffffff;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 5px;
+    border: 2px solid var(--bg-main);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-cyan);
+}
+
+/* ==========================================================================
+   HEADER & NAVIGATION
+   ========================================================================== */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg-nav);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 1.25rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
+    animation: slideDown 0.6s var(--transition-smooth);
+}
+
+header h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.85rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: var(--gradient-title);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.9rem;
+    text-shadow: 0 10px 30px rgba(56, 189, 248, 0.2);
+    position: relative;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+header h1:hover {
+    transform: scale(1.02);
+}
+
+/* Modern Pill Navigation */
+nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 0.35rem 0.45rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-subtle);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 600;
+    padding: 0.55rem 1.35rem;
+    border-radius: var(--radius-full);
+    position: relative;
+    transition: all var(--transition-smooth);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav a:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+}
+
+nav a.active {
+    color: #ffffff;
+    background: var(--gradient-primary);
+    box-shadow: 0 4px 15px rgba(56, 189, 248, 0.35);
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   MAIN CONTAINER
+   ========================================================================== */
+
+main {
+    width: 100%;
+    max-width: 900px;
+    margin: 3.5rem auto;
+    padding: 0 1.5rem;
+    flex: 1;
+    animation: fadeIn 0.8s var(--transition-smooth);
+}
+
+/* ==========================================================================
+   PORTADA / HERO CARD (INDEX.HTML)
+   ========================================================================== */
+
+body.page-home main,
+main:not(:has(section)) {
+    background: var(--bg-card);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 5rem 3rem;
+    text-align: center;
+    box-shadow: var(--shadow-lg), var(--shadow-glow);
+    position: relative;
+    overflow: hidden;
+    margin-top: 4.5rem;
+    margin-bottom: 4.5rem;
+    animation: heroEnter 0.9s var(--transition-bounce);
+}
+
+/* Decorative Glow Line on Portada Card */
+body.page-home main::before,
+main:not(:has(section))::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: var(--gradient-primary);
+    box-shadow: 0 0 18px var(--accent-cyan);
+    border-radius: var(--radius-full);
+}
+
+/* Portada Ambient Shimmer */
+body.page-home main::after,
+main:not(:has(section))::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 0;
+    pointer-events: none;
+    filter: blur(40px);
+}
+
+/* Hero Title */
+body.page-home main h2,
+main:not(:has(section)) h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.25;
+    background: var(--gradient-title);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+    letter-spacing: -0.02em;
+}
+
+/* Hero Subtitle */
+body.page-home main p:first-of-type,
+main:not(:has(section)) p:first-of-type {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Hero Activity Badge */
+body.page-home main p:last-of-type,
+main:not(:has(section)) p:last-of-type {
+    display: inline-block;
+    padding: 0.6rem 2rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--accent-cyan);
+    background: var(--gradient-badge);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    border-radius: var(--radius-full);
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.15);
+    position: relative;
+    z-index: 1;
+    transition: all var(--transition-smooth);
+    animation: pulseBadge 3s ease-in-out infinite;
+}
+
+body.page-home main p:last-of-type:hover,
+main:not(:has(section)) p:last-of-type:hover {
+    transform: scale(1.06);
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+}
+
+/* ==========================================================================
+   CONTENT PAGES (PUNTO 1 & PUNTO 2) - 2 COLUMN GRID LAYOUT
+   ========================================================================== */
+
+/* 2-Column Grid Container for Content Pages */
+body:not(.page-home) main,
+main:has(section) {
+    max-width: 1240px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+}
+
+/* Page Title spanning full width */
+main h2 {
+    grid-column: 1 / -1;
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    text-align: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+    padding-bottom: 1.25rem;
+}
+
+main h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    border-radius: var(--radius-full);
+    background: var(--gradient-primary);
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+}
+
+/* Interactive Question Cards (Sections) */
+section {
+    background: var(--bg-card);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 1.85rem 2rem;
+    margin-bottom: 0;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: transform var(--transition-smooth), 
+                box-shadow var(--transition-smooth), 
+                border-color var(--transition-smooth),
+                background var(--transition-smooth);
+    animation: cardEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Sections with many items (e.g., question 7 in Punto 1 or question 4 in Punto 2) */
+/* Span across both columns and display terms in 2 sub-columns for maximum space saving */
+section:has(p:nth-of-type(6)),
+section.full-width {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 1.5rem;
+    row-gap: 0.65rem;
+}
+
+section:has(p:nth-of-type(6)) h3,
+section.full-width h3 {
+    grid-column: 1 / -1;
+}
+
+/* Staggered entrance animations */
+section:nth-of-type(1)  { animation-delay: 0.05s; }
+section:nth-of-type(2)  { animation-delay: 0.10s; }
+section:nth-of-type(3)  { animation-delay: 0.15s; }
+section:nth-of-type(4)  { animation-delay: 0.20s; }
+section:nth-of-type(5)  { animation-delay: 0.25s; }
+section:nth-of-type(6)  { animation-delay: 0.30s; }
+section:nth-of-type(7)  { animation-delay: 0.35s; }
+section:nth-of-type(8)  { animation-delay: 0.40s; }
+section:nth-of-type(9)  { animation-delay: 0.45s; }
+section:nth-of-type(10) { animation-delay: 0.50s; }
+section:nth-of-type(11) { animation-delay: 0.55s; }
+section:nth-of-type(12) { animation-delay: 0.60s; }
+
+/* Subtle Left Accent Border on Section */
+section::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--gradient-primary);
+    opacity: 0.5;
+    transition: opacity var(--transition-fast), width var(--transition-fast);
+}
+
+/* Card Hover Effects */
+section:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-hover);
+    background: var(--bg-card-hover);
+    box-shadow: var(--shadow-lg), 0 0 25px rgba(56, 189, 248, 0.12);
+}
+
+section:hover::before {
+    opacity: 1;
+    width: 5px;
+}
+
+/* Section Headings (Questions) */
+section h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.4;
+    margin-bottom: 1.15rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    transition: color var(--transition-fast);
+}
+
+section:hover h3 {
+    color: #ffffff;
+}
+
+/* Paragraphs & Answers */
+section p {
+    font-size: 1.025rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    margin: 0.85rem 0;
+    transition: color var(--transition-fast);
+}
+
+section p:last-child {
+    margin-bottom: 0;
+}
+
+/* Strong / Keyword Highlights */
+strong {
+    color: var(--accent-cyan);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    transition: text-shadow 0.2s ease, color 0.2s ease;
+}
+
+section:hover strong {
+    color: #38bdf8;
+    text-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
+}
+
+/* List-like styling for glossary and stages (questions with multiple strong tags) */
+section p:has(strong) {
+    padding: 0.6rem 0.9rem;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.02);
+    border-left: 2px solid rgba(56, 189, 248, 0.3);
+    margin: 0.65rem 0;
+    transition: all var(--transition-smooth);
+}
+
+section p:has(strong):hover {
+    background: rgba(56, 189, 248, 0.06);
+    border-left-color: var(--accent-cyan);
+    transform: translateX(4px);
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+
+footer {
+    background: var(--bg-nav);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border-subtle);
+    padding: 2.25rem 1.5rem;
+    text-align: center;
+    margin-top: auto;
+    position: relative;
+}
+
+/* Subtle top glow line in footer */
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 25%;
+    right: 25%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.4), transparent);
+}
+
+footer p {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+/* Pulse indicator dot in footer */
+footer p::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-emerald);
+    box-shadow: 0 0 10px var(--accent-emerald);
+    animation: pulseDot 2s infinite;
+}
+
+/* ==========================================================================
+   ANIMATIONS & KEYFRAMES
+   ========================================================================== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes cardEnter {
+    from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes heroEnter {
+    from {
+        opacity: 0;
+        transform: translateY(35px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes ambientFloat {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    50% {
+        transform: translate(40px, 30px) scale(1.08);
+    }
+    100% {
+        transform: translate(-30px, 50px) scale(0.95);
+    }
+}
+
+@keyframes pulseBadge {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 28px rgba(56, 189, 248, 0.45);
+    }
+}
+
+@keyframes pulseDot {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.4;
+        transform: scale(0.75);
+    }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (MOBILE & TABLET)
+   ========================================================================== */
+
+@media (max-width: 900px) {
+    body:not(.page-home) main,
+    main:has(section) {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    section:has(p:nth-of-type(6)),
+    section.full-width {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 1rem;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    nav {
+        width: 100%;
+        justify-content: center;
+        gap: 0.25rem;
+    }
+
+    nav a {
+        padding: 0.45rem 0.9rem;
+        font-size: 0.85rem;
+    }
+
+    main {
+        margin: 2rem auto;
+        padding: 0 1rem;
+    }
+
+    body.page-home main,
+    main:not(:has(section)) {
+        padding: 3rem 1.5rem;
+        margin-top: 2rem;
+    }
+
+    body.page-home main h2,
+    main:not(:has(section)) h2 {
+        font-size: 1.85rem;
+    }
+
+    main h2 {
+        font-size: 1.7rem;
+        margin-bottom: 2rem;
+    }
+
+    section {
+        padding: 1.5rem;
+    }
+
+    section h3 {
+        font-size: 1.15rem;
+    }
+}
